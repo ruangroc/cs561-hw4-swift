@@ -1,5 +1,38 @@
 import XCTest
-import MyLibrary
+@testable import MyLibrary
+
+let testJSON1 = """
+{
+    "main": {
+        "temp": 71,
+        "other_stuff": "blah"
+    }
+}
+"""
+
+let testJSON2 = """
+{
+    "not_main": {
+        "temp": 71
+    }
+}
+"""
+
+let testJSON3 = """
+{
+    "main": {
+        "not_temp": 71
+    }
+}
+"""
+
+let testJSON4 = """
+{
+    "not_main": {
+        "temp": 
+    }
+}
+"""
 
 final class MyLibraryTests: XCTestCase {
     func testIsLuckyBecauseWeAlreadyHaveLuckyNumber() async {
@@ -69,4 +102,34 @@ final class MyLibraryTests: XCTestCase {
         XCTAssertNil(isLuckyNumber)
     }
 
+    func testLoadsTestJson1() {
+        let jsonData = Data(testJSON1.utf8)
+        let decoder = JSONDecoder()
+        let weather = try? decoder.decode(Weather.self, from: jsonData)
+        XCTAssertNotNil(weather)
+        XCTAssertNotNil(weather?.main)
+        XCTAssertNotNil(weather?.main.temp)
+        XCTAssert(weather?.main.temp == 71)
+    }
+
+    func testLoadsTestJson2() {
+        let jsonData = Data(testJSON2.utf8)
+        let decoder = JSONDecoder()
+        let weather = try? decoder.decode(Weather.self, from: jsonData)
+        XCTAssertNil(weather)
+    }
+
+    func testLoadsTestJson3() {
+        let jsonData = Data(testJSON3.utf8)
+        let decoder = JSONDecoder()
+        let weather = try? decoder.decode(Weather.self, from: jsonData)
+        XCTAssertNil(weather)
+    }
+
+    func testLoadsTestJson4() {
+        let jsonData = Data(testJSON4.utf8)
+        let decoder = JSONDecoder()
+        let weather = try? decoder.decode(Weather.self, from: jsonData)
+        XCTAssertNil(weather)
+    }
 }
