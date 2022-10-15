@@ -1,0 +1,8 @@
+services:
+  dev:
+    image: "swift"
+    volumes:
+      - ./:/code
+    environment:
+      - USER=anita
+    network_mode: "host"

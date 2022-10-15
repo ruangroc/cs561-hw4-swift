@@ -132,4 +132,12 @@ final class MyLibraryTests: XCTestCase {
         let weather = try? decoder.decode(Weather.self, from: jsonData)
         XCTAssertNil(weather)
     }
+
+    // Integration test
+    func testGetTemperature() async throws {
+        let weatherService = WeatherServiceImpl(endpoint: Endpoint.mockAPI)
+        let expectedTemp = try await weatherService.getTemperature()
+        XCTAssertNotNil(expectedTemp)
+        XCTAssert(expectedTemp == 71)
+    }
 }
