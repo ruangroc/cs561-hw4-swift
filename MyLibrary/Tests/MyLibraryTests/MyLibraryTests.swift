@@ -103,9 +103,14 @@ final class MyLibraryTests: XCTestCase {
     }
 
     func testLoadsTestJson1() {
+        // Given
         let jsonData = Data(testJSON1.utf8)
         let decoder = JSONDecoder()
+
+        // When
         let weather = try? decoder.decode(Weather.self, from: jsonData)
+
+        // Then
         XCTAssertNotNil(weather)
         XCTAssertNotNil(weather?.main)
         XCTAssertNotNil(weather?.main.temp)
@@ -113,30 +118,50 @@ final class MyLibraryTests: XCTestCase {
     }
 
     func testLoadsTestJson2() {
+        // Given
         let jsonData = Data(testJSON2.utf8)
         let decoder = JSONDecoder()
+
+        // When
         let weather = try? decoder.decode(Weather.self, from: jsonData)
+
+        // Then
         XCTAssertNil(weather)
     }
 
     func testLoadsTestJson3() {
+        // Given
         let jsonData = Data(testJSON3.utf8)
         let decoder = JSONDecoder()
+
+        // When
         let weather = try? decoder.decode(Weather.self, from: jsonData)
+
+        // Then
         XCTAssertNil(weather)
     }
 
     func testLoadsTestJson4() {
+        // Given
         let jsonData = Data(testJSON4.utf8)
         let decoder = JSONDecoder()
+
+        // When
         let weather = try? decoder.decode(Weather.self, from: jsonData)
+
+        // Then
         XCTAssertNil(weather)
     }
 
     // Integration test
     func testGetTemperature() async throws {
+        // Given
         let weatherService = WeatherServiceImpl(endpoint: Endpoint.mockAPI)
+
+        // When
         let expectedTemp = try await weatherService.getTemperature()
+        
+        // Then
         XCTAssertNotNil(expectedTemp)
         XCTAssert(expectedTemp == 71)
     }
