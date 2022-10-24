@@ -163,6 +163,6 @@ final class MyLibraryTests: XCTestCase {
         
         // Then
         XCTAssertNotNil(expectedTemp)
-        XCTAssert(expectedTemp == 287.23)
+        XCTAssert(expectedTemp == 287)
     }
 }
